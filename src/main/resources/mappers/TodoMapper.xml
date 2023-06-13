@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todoapp.TodoMapper">
+<select id="selTodoById">
+    select itodo,ctnt,created_at createdAt
+    from t_todo
+    WHERE itodo = #{itodo}
+</select>
+
+    <insert id="insTodo" useGeneratedKeys="true" keyProperty="itodo">
+        INSERT INTO t_todo
+        SET ctnt=#{ctnt}
+    </insert>
+
+    <select id="selTodoList">
+        select itodo,ctnt,created_at createdAt
+        from t_todo
+        where del_yn = 0
+        LIMIT #{startIdx},#{row}
+    </select>
+
+    <select id="getMaxTodo" resultType="int">
+        select count(itodo)
+        from t_todo
+    </select>
+</mapper>
