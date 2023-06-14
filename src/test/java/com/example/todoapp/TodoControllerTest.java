@@ -1,8 +1,10 @@
 package com.example.todoapp;
 
+import com.example.todoapp.model.TodoEntity;
 import com.example.todoapp.model.TodoInsDto;
 import com.example.todoapp.model.TodoSelDto;
 import com.example.todoapp.model.TodoVo;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,17 @@ class TodoControllerTest {
     @Test
     @DisplayName("TODO - 등록")
     void insTodo() throws Exception {
+        Gson gson = new Gson();
+
         //given - 테스트 설정 단계
         given(service.insTodo(any(TodoInsDto.class))).willReturn(3);
         //가짜 ins dto 한테 임무를 부여
 
         //when단계 - 실제실행단계/보내는 형식 json 형식으로 만들어주기
-        String json = "{\" ctnt\":\" 빨래개기\"}";
+        TodoInsDto dto = new TodoInsDto();
+        dto.setCtnt("빨래개기~");
+        String json = gson.toJson(dto);
+
         ResultActions ra = mvc.perform(post("/api/todo")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON));
@@ -75,4 +82,33 @@ class TodoControllerTest {
 
         verify(service).getList();
     }
+
+    @Test
+    @DisplayName("TODO - 완료처리")
+    void finTodo() throws Exception {
+        Gson gson = new Gson();
+
+        //given
+        given(service.updTodo(any())).willReturn(1);
+
+        //when
+        TodoEntity entity = new TodoEntity();
+//        entity.setCtnt("청소기돌리기");
+        entity.setItodo(1);
+        String json = gson.toJson(entity);
+
+        ResultActions ra = mvc.perform(patch("/api/todo")
+                    .content(json)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+       //then - 검증
+
+        ra.andExpect(status().isOk())
+                .andExpect(content().string("1"))
+                .andDo(print());
+
+        verify(service).updTodo(any());
+    }
+
+
 }

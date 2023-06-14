@@ -1,9 +1,6 @@
 package com.example.todoapp;
 
-import com.example.todoapp.model.TodoEntity;
-import com.example.todoapp.model.TodoInsDto;
-import com.example.todoapp.model.TodoSelDto;
-import com.example.todoapp.model.TodoVo;
+import com.example.todoapp.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -87,4 +84,27 @@ class TodoServiceTest {
 //        verify(mapper).getList();
 //    }
 }
+
+    @Test
+    @DisplayName("TodoService - Todo 완료처리 토글")
+    void updTodo() {
+
+        TodoFinDto fDto = new TodoFinDto();
+        fDto.setItodo(1);
+        TodoEntity entity = new TodoEntity();
+        entity.setItodo(fDto.getItodo());
+        entity.setFinishYn(1);
+        //값넘겨주는 과정
+//        given(service.updTodo(any(TodoFinDto.class))).willReturn(1);
+        //
+        when(mapper.finTodo(entity)).thenReturn(1);
+
+        int result = service.updTodo(fDto);
+
+
+        assertEquals(entity.getFinishYn(),result);
+
+        verify(mapper).finTodo(entity);
+
+    }
 }

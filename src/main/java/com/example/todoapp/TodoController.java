@@ -41,11 +41,10 @@ public class TodoController {
     public List<TodoVo> getList(){
         return service.getList();
     }
-    @PatchMapping("{itodo}")
-    public int finTodo(@PathVariable int itodo){
-        TodoEntity entity = new TodoEntity();
-        entity.setItodo(itodo);
-        return service.updTodo(entity);
+
+    @PatchMapping
+    public int finTodo(@RequestBody TodoFinDto dto){
+        return service.updTodo(dto);
     }
 
 }

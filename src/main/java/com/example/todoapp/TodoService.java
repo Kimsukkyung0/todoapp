@@ -44,8 +44,11 @@ public class TodoService {
     List<TodoVo> getList(){
         return mapper.getList();
     }
-    int updTodo(TodoEntity entity){
-        int tmp = mapper.getFinYn(entity);//0이나 1임
+
+    int updTodo(TodoFinDto dto){
+        int tmp = mapper.getFinYn(dto);//0이나 1임
+        TodoEntity entity = new TodoEntity();
+        entity.setItodo(dto.getItodo());
         System.out.println(tmp);
         if(tmp==0){ //0이면 미완료
             entity.setFinishYn(1);

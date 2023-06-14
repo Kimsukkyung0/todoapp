@@ -13,6 +13,6 @@ public interface TodoMapper {
     List<TodoVo> getList();
 //    int getMaxTodo();
     int finTodo(TodoEntity entity);
-    int getFinYn(TodoEntity entity);
+    int getFinYn(TodoFinDto dto);
 
 }
