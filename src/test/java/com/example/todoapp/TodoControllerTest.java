@@ -1,6 +1,8 @@
 package com.example.todoapp;
 
 import com.example.todoapp.model.TodoInsDto;
+import com.example.todoapp.model.TodoSelDto;
+import com.example.todoapp.model.TodoVo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +11,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 
-import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(TodoController.class)
@@ -52,5 +55,24 @@ class TodoControllerTest {
          .andDo(print());
 
         verify(service).insTodo(any());
+    }
+
+
+    @Test
+    @DisplayName("TODO - 리스트")
+    void getList() throws Exception {
+        //given
+        List<TodoVo> mockList = new ArrayList<>();
+        mockList.add(new TodoVo(1,"테스트","223","null",0,"2023-05-11"));
+        mockList.add(new TodoVo(2,"테스트2","223","null",0,"null"));
+//        given(service.getList()).willReturn(mockList);
+
+       //when
+        ResultActions ra = mvc.perform(get("/api/todo"));
+        List<TodoVo> actualList = service.getList();
+        assertEquals(mockList,actualList.size());
+
+
+        verify(service).getList();
     }
 }

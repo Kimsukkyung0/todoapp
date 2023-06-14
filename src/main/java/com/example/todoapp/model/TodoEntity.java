@@ -1,25 +1,14 @@
 package com.example.todoapp.model;
 
+import lombok.Data;
 
+@Data
 public class TodoEntity {
     private int itodo;
     private String ctnt;
     private String createdAt;
     private int delYn;
+    private int finishYn;
+    private int finishedAt;
     private String pic;
-
-    public int getItodo() {
-        return itodo;
-    }
-
-    public void setItodo(int itodo) {
-        this.itodo = itodo;
-    }
-    public String getCtnt() {
-        return ctnt;
-    }
-
-    public void setCtnt(String ctnt) {
-        this.ctnt = ctnt;
-    }
 }

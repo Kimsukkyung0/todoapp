@@ -16,7 +16,8 @@
     </insert>
 
     <select id="selTodoList">
-        select itodo,ctnt,created_at createdAt
+        select itodo,ctnt,created_at createdAt, pic, finish_yn finishYn
+        , finished_at finishedAt
         from t_todo
         where del_yn = 0
         LIMIT #{startIdx},#{row}
@@ -25,5 +26,29 @@
     <select id="getMaxTodo" resultType="int">
         select count(itodo)
         from t_todo
+    </select>
+
+    <select id="getList">
+        select itodo,ctnt,created_at createdAt
+        from t_todo
+        where del_yn = 0
+    </select>
+
+    <update id="finTodo">
+        UPDATE t_todo
+        SET finish_yn = #{finishYn},
+        <if test="finishYn==0">
+            finished_at = null
+        </if>
+        <if test="finishYn==1">
+            finished_at = now()
+        </if>
+        WHERE itodo=#{itodo}
+    </update>
+
+    <select id="getFinYn">
+        select finish_yn
+        from t_todo
+        WHERE itodo=#{itodo}
     </select>
 </mapper>

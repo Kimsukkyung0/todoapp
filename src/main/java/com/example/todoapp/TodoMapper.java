@@ -9,6 +9,10 @@ import java.util.List;
 public interface TodoMapper {
     TodoVo selTodoById(TodoSelDto dto);
     int insTodo(TodoEntity enti);
-    List<TodoVo> selTodoList(TodoSelDto dto);
-    int getMaxTodo();
+//    List<TodoVo> selTodoList(TodoSelDto dto);
+    List<TodoVo> getList();
+//    int getMaxTodo();
+    int finTodo(TodoEntity entity);
+    int getFinYn(TodoEntity entity);
+
 }
