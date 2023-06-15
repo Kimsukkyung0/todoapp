@@ -18,7 +18,7 @@ public class TodoController {
 //    public TodoController(TodoService service){
 //        this.service = service;
 //    }
-    @GetMapping("{itodo}")
+    @GetMapping("/{itodo}")
     public TodoVo getTodo(@PathVariable int itodo){
         TodoSelDto sDto = new TodoSelDto();
         sDto.setItodo(itodo);
@@ -29,7 +29,7 @@ public class TodoController {
     public int insTodo(@RequestBody TodoInsDto dto){
         return service.insTodo(dto);
     }
-//
+
 //    @GetMapping("/list")
 //    public TodoRes getTodoList(@RequestParam @Min(1)int page, @RequestParam (defaultValue = "5") int row){
 //        TodoSelDto dto = new TodoSelDto();
@@ -38,7 +38,7 @@ public class TodoController {
 //        return service.getTodoList(dto);
 //    }
     @GetMapping
-    public List<TodoVo> getList(){
+    public List<TodoVo> getTodo(){
         return service.getList();
     }
 
@@ -46,5 +46,15 @@ public class TodoController {
     public int finTodo(@RequestBody TodoFinDto dto){
         return service.updTodo(dto);
     }
+
+    @PatchMapping("/{itodo}")
+    public int delYnTodo(@PathVariable int itodo){
+        TodoFinDto dto = new TodoFinDto();
+        dto.setItodo(itodo);
+        return service.delTodo(dto);
+    }
+
+
+
 
 }

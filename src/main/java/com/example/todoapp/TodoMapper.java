@@ -14,5 +14,5 @@ public interface TodoMapper {
 //    int getMaxTodo();
     int finTodo(TodoEntity entity);
     int getFinYn(TodoFinDto dto);
-
+    int delTodo(TodoFinDto dto);
 }

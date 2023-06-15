@@ -1,9 +1,6 @@
 package com.example.todoapp;
 
-import com.example.todoapp.model.TodoEntity;
-import com.example.todoapp.model.TodoInsDto;
-import com.example.todoapp.model.TodoSelDto;
-import com.example.todoapp.model.TodoVo;
+import com.example.todoapp.model.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +35,7 @@ class TodoControllerTest {
     private TodoService service;
 
     @Test
-    @DisplayName("TODO - 등록")
+    @DisplayName("TODO Controller - 등록")
     void insTodo() throws Exception {
         Gson gson = new Gson();
 
@@ -66,12 +63,12 @@ class TodoControllerTest {
 
 
     @Test
-    @DisplayName("TODO - 리스트")
+    @DisplayName("TODO Controller - 리스트")
     void getList() throws Exception {
         //given
         List<TodoVo> mockList = new ArrayList<>();
-        mockList.add(new TodoVo(1,"테스트","223","null",0,"2023-05-11"));
-        mockList.add(new TodoVo(2,"테스트2","223","null",0,"null"));
+        mockList.add(new TodoVo(1,"테스트","223"));
+        mockList.add(new TodoVo(2,"테스트2","223"));
 //        given(service.getList()).willReturn(mockList);
 
        //when
@@ -84,7 +81,7 @@ class TodoControllerTest {
     }
 
     @Test
-    @DisplayName("TODO - 완료처리")
+    @DisplayName("TODO Controller - 완료처리")
     void finTodo() throws Exception {
         Gson gson = new Gson();
 
@@ -111,4 +108,24 @@ class TodoControllerTest {
     }
 
 
+    @Test
+    @DisplayName("TODO Controller - 삭제처리")
+    void delYnTodo() throws Exception {
+        Gson gson = new Gson();
+
+        //given
+        given(service.delTodo(any(TodoFinDto.class))).willReturn(1);
+        TodoFinDto fDto = new TodoFinDto();
+        fDto.setItodo(1);
+        String json = gson.toJson(fDto);
+        ResultActions ra = mvc.perform(patch("/api/todo/"+fDto.getItodo())
+                              .content(json)
+                              .contentType(MediaType.APPLICATION_JSON));
+
+              ra.andExpect(status().isOk())
+                .andExpect(content().string("1"))
+                .andDo(print());
+
+        verify(service).delTodo(any(TodoFinDto.class));
+    }
 }

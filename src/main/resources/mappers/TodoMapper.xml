@@ -51,4 +51,10 @@
         from t_todo
         WHERE itodo=#{itodo}
     </select>
+
+    <update id="delTodo">
+        UPDATE t_todo
+        SET del_yn= 1
+        WHERE itodo=#{itodo}
+    </update>
 </mapper>

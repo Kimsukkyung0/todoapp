@@ -14,6 +14,8 @@ public class TodoService {
     public TodoService(TodoMapper mapper){
         this.mapper = mapper;
     }
+
+
     TodoVo selTodo(TodoSelDto dto){
         return mapper.selTodoById(dto);
     };
@@ -58,6 +60,9 @@ public class TodoService {
         }
 
         return mapper.finTodo(entity);
+    }
+    int delTodo(TodoFinDto dto){
+        return mapper.delTodo(dto);
     }
 
     }

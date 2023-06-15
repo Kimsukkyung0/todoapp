@@ -1,4 +1,4 @@
-drop table if exists 't_todo';
+drop table if exists `t_todo`;
 
 CREATE TABLE IF NOT EXISTS `t_todo` (
     `itodo` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
