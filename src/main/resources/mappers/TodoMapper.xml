@@ -57,4 +57,18 @@
         SET del_yn= 1
         WHERE itodo=#{itodo}
     </update>
+
+    <insert id="insTodoPics">
+        insert into t_todo_pics
+        set itodo=#{itodo}
+       , <foreach collection="list" open="(" separator="),(" close=")">
+        #{itodo},#{pic}
+    </foreach>
+    </insert>
+
+    <update id="upTodoPic">
+        update t_todo
+        set pic=#{pic}
+        where itodo=#{itodo}
+    </update>
 </mapper>

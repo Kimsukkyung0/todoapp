@@ -15,4 +15,6 @@ public interface TodoMapper {
     int finTodo(TodoEntity entity);
     int getFinYn(TodoFinDto dto);
     int delTodo(TodoFinDto dto);
+    int insTodoPics(TodoPicsInsDto dto);
+    int upTodoPic(TodoPicUpDto dto);
 }

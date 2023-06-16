@@ -4,7 +4,9 @@ import com.example.todoapp.model.*;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -54,7 +56,17 @@ public class TodoController {
         return service.delTodo(dto);
     }
 
+    @PostMapping(value = "{itodo}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public int postTodoPics(@PathVariable Long itodo, @RequestPart List<MultipartFile> pic){
+        TodoPicsInsDto dto = new TodoPicsInsDto();
+        dto.setItodo(itodo);
+        return service.insTodoPics(dto, pic);
+    }
 
+    @PatchMapping(value ="/{itodo}/pic",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public int upTodoPic(@PathVariable int itodo, @RequestPart MultipartFile pic){
+        return service.TodoPicUp(itodo,pic);
+    }
 
 
 }
