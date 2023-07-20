@@ -88,6 +88,7 @@ public class TodoService {
             String targetDir = String.format("%s/%d/pics",fileDir,dto.getItodo());
             //d/download/todo/1/pics
             File file = new File(targetDir);
+
             if (!file.exists()){
                 file.mkdirs();
             }

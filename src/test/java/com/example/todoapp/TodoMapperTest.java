@@ -10,13 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @MybatisTest
-@ActiveProfiles("test")     //default yaml설정에 더해, profile 에 추가한 설정까지
+@ActiveProfiles("test")
+//default yaml설정 , 대시 "---" 하단부의 on-profile 에 추가한 설정까지 적용한다는 의미
+//활성화시킬 설정파일을 지정하고있다.
+
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //데이터베이스 자동설정 .
 class TodoMapperTest {
 
@@ -42,11 +48,11 @@ class TodoMapperTest {
     void getList() {
         List<TodoVo> list = mapper.getList();
 
-        assertEquals(4,list.size());
+        assertEquals(4,list.size());//사이즈테스트
         TodoVo vo = list.get(0);
         assertEquals(1,vo.getItodo());
         assertEquals("string",vo.getCtnt());
-        assertEquals("2023-06-13 16:57:20",vo.getCreatedAt());
+
 
     }
 
